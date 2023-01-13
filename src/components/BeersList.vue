@@ -43,9 +43,9 @@ const fetchBeers = async () => {
     });
 };
 
-const searchBeer = (searchParams<any>) => {
-  fetchParams.value = searchParams;
-  page.value = 1;
+const searchBeer = () => {
+  // fetchParams.value = searchParams;
+  // page.value = 1;
   changePage();
   fetchBeers();
 };
