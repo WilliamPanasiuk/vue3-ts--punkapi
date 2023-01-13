@@ -9,29 +9,32 @@ let searchParams = reactive({
 });
 let isValid = ref(true);
 
+// watch
+// https://vuejs.org/guide/essentials/watchers.html#basic-example
+// Do note that you can't watch a property of a reactive object like this:
+// Instead, use a getter:
 watch(
   () => searchParams.ibuGtInput,
-  (ibuGtInput:any) => {
+  (ibuGtInput) => {
     const reg = new RegExp("^[0-9]+$");
-    console.log(ibuGtInput);
-    if (reg.test(ibuGtInput) || ibuGtInput == "" || ibuGtInput == null) {
+    if (reg.test(`${ibuGtInput}`) || ibuGtInput == "" || ibuGtInput == null) {
       isValid.value = true;
     } else {
       isValid.value = false;
     }
   }
-),
-  watch(
-    () => searchParams.ibuLtInput,
-    (ibuLtInput:any) => {
-      const reg = new RegExp("^[0-9]+$");
-      if (reg.test(ibuLtInput) || ibuLtInput == "" || ibuLtInput == null) {
-        isValid.value = true;
-      } else {
-        isValid.value = false;
-      }
+);
+watch(
+  () => searchParams.ibuLtInput,
+  (ibuLtInput) => {
+    const reg = new RegExp("^[0-9]+$");
+    if (reg.test(`${ibuLtInput}`) || ibuLtInput == "" || ibuLtInput == null) {
+      isValid.value = true;
+    } else {
+      isValid.value = false;
     }
-  );
+  }
+);
 
 const validateNumber = () => {
   if (isValid.value) {
@@ -103,7 +106,10 @@ const handleSearch = () => {
         />
       </div>
       <div class="w-full px-3 mt-2 mb-4 md:mb-0">
-        <p v-if="!isValid" class="p-1 text-red-500">Number is invalid</p>
+        <p
+          v-if="!isValid"
+          class="p-1 text-red-500"
+        >Number is invalid</p>
       </div>
       <div class="w-full md:w-1/2 px-3 mt-2 mb-6 md:mb-0">
         <button

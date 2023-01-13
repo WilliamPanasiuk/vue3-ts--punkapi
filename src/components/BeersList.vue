@@ -23,19 +23,19 @@ const fetchBeers = async () => {
   await axios
     .get(
       import.meta.env.VITE_API_PATH +
-        "beers?page=" +
-        page.value +
-        "&per_page=" +
-        perPage +
-        (fetchParams.value.beerInput
-          ? "&beer_name=" + fetchParams.value.beerInput
-          : "") +
-        (fetchParams.value.ibuGtInput
-          ? "&ibu_gt=" + fetchParams.value.ibuGtInput
-          : "") +
-        (fetchParams.value.ibuLtInput
-          ? "&ibu_lt=" + fetchParams.value.ibuLtInput
-          : "")
+      "beers?page=" +
+      page.value +
+      "&per_page=" +
+      perPage +
+      (fetchParams.value.beerInput
+        ? "&beer_name=" + fetchParams.value.beerInput
+        : "") +
+      (fetchParams.value.ibuGtInput
+        ? "&ibu_gt=" + fetchParams.value.ibuGtInput
+        : "") +
+      (fetchParams.value.ibuLtInput
+        ? "&ibu_lt=" + fetchParams.value.ibuLtInput
+        : "")
     )
     .then((response) => {
       beersList.value = response.data;
@@ -43,14 +43,14 @@ const fetchBeers = async () => {
     });
 };
 
-const searchBeer = (searchParams:any) => {
+const searchBeer = (searchParams<any>) => {
   fetchParams.value = searchParams;
   page.value = 1;
   changePage();
   fetchBeers();
 };
 
-const calculatePage = (n:any) => {
+const calculatePage = (n: any) => {
   if (
     (n == -1 && page.value > 1) ||
     (n == 1 && beersList.value.length == perPage)
@@ -83,7 +83,10 @@ onMounted(() => {
 
   <div class="px-6 pt-2 pb-8 mb-4 relative beers-list">
     <h3 class="text-lg text-c-second font-bold px-4 mb-3">Beers list</h3>
-    <TransitionGroup name="list" tag="ul">
+    <TransitionGroup
+      name="list"
+      tag="ul"
+    >
       <li
         v-for="beer in beersList"
         :key="beer['id']"
@@ -94,7 +97,10 @@ onMounted(() => {
           class="flex justify-between py-2 px-4 w-full text-gray-300 hover:text-c-second font-bold"
         >
           <span>{{ beer["name"] }}</span>
-          <span v-if="beer['ibu']" class="text-gray-700">
+          <span
+            v-if="beer['ibu']"
+            class="text-gray-700"
+          >
             <span class="text-xs">IBU:</span>
             {{ beer["ibu"] }}
           </span>
